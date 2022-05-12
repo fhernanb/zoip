@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Juan Camilo Diaz Zapata" />
+
+<meta name="date" content="2017-12-18" />
+
+<title>Distribución ZOIP</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Distribución ZOIP</h1>
+<h4 class="author"><em>Juan Camilo Diaz Zapata</em></h4>
+<h4 class="date"><em>2017-12-18</em></h4>
+
+
+
+<div id="distribucion-zoip" class="section level2">
+<h2>Distribución ZOIP</h2>
+<p>La función ZOIP () define las distribuciones para datos proporcionales inflados con ceros y unos más conocidas, como la distribución beta y simplex, además permite que se tengan distintas parametrizaciones de la distribución beta. La función ZOIP () posee 4 parámetros dos de ellos corresponden a la proporción de ceros y unos que quiere que posea la distribución para datos proporcionales de su elección.</p>
+<p>La distribución para datos proporcionales en cero y/o uno se compone de la mezcla de dos distribuciones, una parte dada por una distribución degenerada en cero o uno y la otra por la densidad de una distribución para datos proporcionales, como las presentadas anteriormente, se dice que <span class="math inline">\(y \sim ZOIP(\mu,\sigma, p_0, p_1)\)</span> si sigue la función de densidad de probabilidad dada por: <span class="math display">\[
+g(y;\mu,\sigma, p_{0}, p_{1})=
+\begin{cases}
+p_{0} &amp; \text{Si}\ y=0,\\
+p_{1} &amp; \text{Si}\ y=1,\\
+(1-p_{0}-p_{1})f(y;\mu,\sigma) &amp; \text{Si}\ y \in (0,1)
+\end{cases}
+\]</span></p>
+<p>donde <span class="math inline">\(p_{0} \geq 0\)</span> representa la probabilidad que <span class="math inline">\(y=0\)</span>, <span class="math inline">\(p_{1} \geq 0\)</span> representa la probabilidad de que <span class="math inline">\(y=1\)</span>, <span class="math inline">\(0\leq p_{0}+p_{1}\leq 1\)</span> y <span class="math inline">\(f(y;\mu,\phi)\)</span> representa algunas de las funciones de densidad de probabilidad para datos proporcionales, como la distribución beta y simplex.</p>
+</div>
+<div id="instalacion-paquete-zoip" class="section level2">
+<h2>Instalación paquete ZOIP</h2>
+<p>Se debe ejecutar las siguientes líneas de código para instalar el paquete <em>ZOIP</em> en R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">'devtools'</span>)) <span class="kw">install.packages</span>(<span class="st">'devtools'</span>) devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'jucdiaz/ZOIP'</span>, <span class="dt">force=</span><span class="ot">TRUE</span>)
+<span class="kw">library</span>(ZOIP)</code></pre></div>
+</div>
+<div id="parametros-comunes-de-la-distribucion-zoip-en-el-paquete-zoip." class="section level2">
+<h2>Parámetros Comunes de la distribución ZOIP en el paquete ZOIP.</h2>
+<p>La función ZOIP está compuesta por varios parámetros (mu, sigma, p0, p1, Family) que serán descritos a continuación:</p>
+<div id="family" class="section level4">
+<h4>family</h4>
+<p>Es el parámetro que describe la distribución y/o parametrización a utilizar en la función ya sea <em>dZOIP, pZOIP, qZOIP, rZOIP</em></p>
+<ol style="list-style-type: decimal">
+<li><strong>family=‘R-S’</strong> utiliza la distribución beta con parametrización beta Rigby y Stasinopoulos (2005), cuya función de densidad de probabilidad de la distribución beta con par'{a}metros <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma\)</span> dada por:</li>
+</ol>
+<p><span class="math display">\[
+f(y;\mu,\sigma)=B(\mu,\sigma)y^{\mu((1-\sigma^2)/\sigma^2)-1}(1-y)^{(1-\mu)((1-\sigma^2)/\sigma^2)-1} \quad; 0&lt;y&lt;1 
+\]</span></p>
+<p>donde <span class="math inline">\(B(\mu,\sigma)=\frac{\Gamma((1-\sigma^2)/\sigma^2)}{\Gamma(\mu((1-\sigma^2)/\sigma^2))\Gamma((1-\mu)((1-\sigma^2)/\sigma^2))},\)</span></p>
+<p>donde <span class="math inline">\(0&lt;\mu&lt;1\)</span> y <span class="math inline">\(0&lt;\sigma&lt;1\)</span> este último puede ser interpretado como un parámetro de dispersión de <em>y</em>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>family=‘F-C’</strong> utiliza la distribución beta parametrización Ferrari y Cribari-Neto (2004), donde el parámetro sigma será igual a <span class="math inline">\(\phi\)</span>, la función de distribución beta tendrá los parámetros <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\phi\)</span> donde <span class="math inline">\(\mu\)</span> corresponde a la media de la distribución. Si <span class="math inline">\(y \sim Be(\mu,\phi)\)</span> la función de densidad de probabilidad de la distribución está dada por:</li>
+</ol>
+<p><span class="math display">\[
+f(y;\mu,\phi)=\frac{\Gamma(\phi)}{\Gamma(\mu\phi)\Gamma((1-\mu)\phi)}y^{\mu\phi-1}(1-y)^{(1-\mu)\phi-1} \quad;\quad  0&lt;y&lt;1 
+\]</span></p>
+<p>donde <span class="math inline">\(0&lt;\mu&lt;1\)</span> y <span class="math inline">\(\phi&gt;0\)</span>, el parámetro <span class="math inline">\(\phi\)</span> es interpretado como un parámetro de precisión. Cuando <span class="math inline">\(\mu=1/2\)</span> la distribución es simétrica y si <span class="math inline">\(\mu\neq1/2\)</span> es asimétrica, además cuando <span class="math inline">\(\mu=1/2\)</span> y <span class="math inline">\(\phi=2\)</span> se convierte en la distribución uniforme y para valores más grandes de <span class="math inline">\(\phi\)</span> la varianza de <span class="math inline">\(\mu\)</span> es más pequeña.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>family=‘Original’</strong> utiliza la distribución beta parametrización original donde mu=<span class="math inline">\(p\)</span>, <span class="math inline">\(p\)</span> parámetro de forma uno; sigma=<span class="math inline">\(q\)</span>, <span class="math inline">\(q\)</span> parámetro de forma dos. Si una variable aleatoria <span class="math inline">\(y\)</span> tiene distribución beta con parámetros <span class="math inline">\(p\)</span> y <span class="math inline">\(q\)</span> se acostumbra a denotarla por <span class="math inline">\(y \sim Be(p,q)\)</span> y La función de densidad de probabilidad de la distribución es dada por:</li>
+</ol>
+<p><span class="math display">\[
+f(y;p,q)=\frac{\Gamma(p+q)}{\Gamma(p)\Gamma(q)}y^{p-1}(1-y)^{q-1} \quad;\quad  0&lt;y&lt;1 
+\]</span></p>
+<p>donde <span class="math inline">\(p&gt;0\)</span>, <span class="math inline">\(q&gt;0\)</span> y <span class="math inline">\(\Gamma(\cdot)\)</span> es la función gamma.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>family=‘simplex’</strong> utiliza la distribución simplex. propuesta por Barndorff-Nielsen and Jørgensen (1991). la distribución simplex que es introducida por Barndorff-Nielsen and Jørgensen (1991) es un caso particular de los modelos de dispersión propuestos por Jørgensen (1997), cuya función de densidad de probabilidad depende de los parámetros <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\Sigma^{2}\)</span> denotado por <span class="math inline">\(S(\mu, \sigma^{2})\)</span> y está dado por:</li>
+</ol>
+<p><span class="math display">\[
+f(y;\mu,\sigma^2)=\left\{2\pi\sigma^2[y(1-y)]^3\right\}^{-1/2}exp\left\{-\frac{(y-\mu)^2}{2\sigma^2y(1-y)\mu^2(1-\mu)^2}\right\}\quad;\quad 0&lt;y&lt;1
+\]</span> \ donde <span class="math inline">\(0&lt;y&lt;1\)</span>, <span class="math inline">\(0&lt;\mu&lt;1\)</span> y <span class="math inline">\(\sigma^{2}&gt;0\)</span>.</p>
+</div>
+<div id="mu" class="section level4">
+<h4>mu</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Familia</th>
+<th>Significado de mu</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R-S</td>
+<td>Media de la distribución</td>
+</tr>
+<tr class="even">
+<td>F-C</td>
+<td>Media de la distribución</td>
+</tr>
+<tr class="odd">
+<td>Original</td>
+<td>Parámetro de forma p</td>
+</tr>
+<tr class="even">
+<td>Simplex</td>
+<td>Media de la distribución</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sigma" class="section level4">
+<h4>sigma</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Familia</th>
+<th>Significado de sigma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R-S</td>
+<td>Parámetro de dispersión</td>
+</tr>
+<tr class="even">
+<td>F-C</td>
+<td>Parámetro de precisión</td>
+</tr>
+<tr class="odd">
+<td>Original</td>
+<td>Parámetro de forma q</td>
+</tr>
+<tr class="even">
+<td>Simplex</td>
+<td>Parámetro de dispersión</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="p0" class="section level4">
+<h4>p0</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Familia</th>
+<th>Significado de p0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R-S</td>
+<td>Parámetro de proporción de ceros en la distribución ZOIP</td>
+</tr>
+<tr class="even">
+<td>F-C</td>
+<td>Parámetro de proporción de ceros en la distribución ZOIP</td>
+</tr>
+<tr class="odd">
+<td>Original</td>
+<td>Parámetro de proporción de ceros en la distribución ZOIP</td>
+</tr>
+<tr class="even">
+<td>Simplex</td>
+<td>Parámetro de proporción de ceros en la distribución ZOIP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="p1" class="section level4">
+<h4>p1</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Familia</th>
+<th>Significado de p0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R-S</td>
+<td>Parámetro de proporción de unos en la distribución ZOIP</td>
+</tr>
+<tr class="even">
+<td>F-C</td>
+<td>Parámetro de proporción de unos en la distribución ZOIP</td>
+</tr>
+<tr class="odd">
+<td>Original</td>
+<td>Parámetro de proporción de unos en la distribución ZOIP</td>
+</tr>
+<tr class="even">
+<td>Simplex</td>
+<td>Parámetro de proporción de unos en la distribución ZOIP</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="funcion-dzoip" class="section level2">
+<h2>Función dZOIP()</h2>
+<p>La función dZOIP define la función de densidad de probabilidad de la distribución ZOIP. posee la siguiente sintaxis por default</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dZOIP</span>(x, <span class="dt">mu =</span> <span class="fl">0.5</span>, <span class="dt">sigma =</span> <span class="fl">0.1</span>, <span class="dt">p0 =</span> <span class="fl">0.08333333</span>, <span class="dt">p1 =</span> <span class="fl">0.08333333</span>,<span class="dt">family=</span><span class="st">'R-S'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>algunos ejemplos de su uso son dados por:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dZOIP</span>(<span class="dt">x=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="fl">0.5</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'R-S'</span>,<span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.3243543</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dZOIP</span>(<span class="dt">x=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'F-C'</span>,<span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.3243543</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dZOIP</span>(<span class="dt">x=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.6</span>, <span class="dt">sigma =</span> <span class="fl">2.4</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Original'</span>,<span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.3243543</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dZOIP</span>(<span class="dt">x=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Simplex'</span>,<span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.1060994</code></pre>
+</div>
+<div id="funcion-pzoip" class="section level2">
+<h2>Función pZOIP()</h2>
+<p>La función pZOIP define la función de distribución acumulada de la distribución ZOIP. posee la siguiente sintaxis por default</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pZOIP</span>(q, <span class="dt">mu =</span> <span class="fl">0.5</span>, <span class="dt">sigma =</span> <span class="fl">0.1</span>, <span class="dt">p0 =</span> <span class="fl">0.08333333</span>, <span class="dt">p1 =</span> <span class="fl">0.08333333</span>,<span class="dt">family=</span><span class="st">'R-S'</span>,<span class="dt">lower.tail =</span> <span class="ot">TRUE</span>, <span class="dt">log.p =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>algunos ejemplos de su uso son dados por:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pZOIP</span>(<span class="dt">q=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="fl">0.5</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'R-S'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.7385918</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pZOIP</span>(<span class="dt">q=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'F-C'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.7385918</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pZOIP</span>(<span class="dt">q=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.6</span>, <span class="dt">sigma =</span> <span class="fl">2.4</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Original'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.7385918</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pZOIP</span>(<span class="dt">q=</span><span class="fl">0.5</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Simplex'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.794461</code></pre>
+</div>
+<div id="funcion-qzoip" class="section level2">
+<h2>Función qZOIP()</h2>
+<p>La función qZOIP define la función cuantil de la distribución ZOIP. posee la siguiente sintaxis por default</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qZOIP</span>(p, <span class="dt">mu =</span> <span class="fl">0.5</span>, <span class="dt">sigma =</span> <span class="fl">0.1</span>, <span class="dt">p0 =</span> <span class="fl">0.08333333</span>, <span class="dt">p1 =</span> <span class="fl">0.08333333</span>,<span class="dt">family=</span><span class="st">'R-S'</span>,<span class="dt">lower.tail =</span> <span class="ot">TRUE</span>, <span class="dt">log.p =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>algunos ejemplos de su uso son dados por:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qZOIP</span>(<span class="dt">p=</span><span class="fl">0.7</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="fl">0.5</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'R-S'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.4004745</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qZOIP</span>(<span class="dt">p=</span><span class="fl">0.7</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'F-C'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.4004745</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qZOIP</span>(<span class="dt">p=</span><span class="fl">0.7</span>, <span class="dt">mu =</span> <span class="fl">0.6</span>, <span class="dt">sigma =</span> <span class="fl">2.4</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Original'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.4004745</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qZOIP</span>(<span class="dt">p=</span><span class="fl">0.7</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Simplex'</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.2973274</code></pre>
+</div>
+<div id="funcion-rzoip" class="section level2">
+<h2>Función rZOIP()</h2>
+<p>la función rZOIP define la función generadora de números aleatorios para la distribución ZOIP. Posee la siguiente sintaxis por default</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rZOIP</span>(n, <span class="dt">mu =</span> <span class="fl">0.5</span>, <span class="dt">sigma =</span> <span class="fl">0.1</span>,<span class="dt">p0 =</span> <span class="fl">0.08333333</span>, <span class="dt">p1 =</span> <span class="fl">0.08333333</span>,<span class="dt">family=</span><span class="st">'R-S'</span>)</code></pre></div>
+<p>algunos ejemplos de su uso son dados por:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1&lt;-<span class="kw">rZOIP</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="fl">0.5</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'R-S'</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(a1),<span class="dt">main=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Distribucion beta Parametrizacion R-S &quot;</span>,mu<span class="op">==</span><span class="fl">0.2</span>,<span class="st">&quot;, &quot;</span>,sigma<span class="op">==</span><span class="fl">0.5</span>,<span class="st">&quot;, &quot;</span>, <span class="st">&quot;p0=0.2&quot;</span>,<span class="st">&quot;, &quot;</span>,<span class="st">&quot;p1=0.2&quot;</span>))
+,<span class="dt">xlab=</span><span class="st">'Proporcion'</span>,<span class="dt">ylab=</span><span class="st">'Frecuencia'</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a2&lt;-<span class="kw">rZOIP</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'F-C'</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(a2),<span class="dt">main=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Distribucion beta Parametrizacion F-C &quot;</span>,mu<span class="op">==</span><span class="fl">0.2</span>,<span class="st">&quot;, &quot;</span>,phi<span class="op">==</span><span class="dv">3</span>,<span class="st">&quot;, &quot;</span>, <span class="st">&quot;p0=0.2&quot;</span>,<span class="st">&quot;, &quot;</span>,<span class="st">&quot;p1=0.2&quot;</span>))
+,<span class="dt">xlab=</span><span class="st">'Proporcion'</span>,<span class="dt">ylab=</span><span class="st">'Frecuencia'</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a3&lt;-<span class="kw">rZOIP</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">mu =</span> <span class="fl">0.6</span>, <span class="dt">sigma =</span> <span class="fl">2.4</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Original'</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(a3),<span class="dt">main=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Distribucion beta Parametrizacion Original &quot;</span>,p<span class="op">==</span><span class="fl">0.6</span>,<span class="st">&quot;, &quot;</span>,q<span class="op">==</span><span class="fl">2.4</span>,<span class="st">&quot;, &quot;</span>, <span class="st">&quot;p0=0.2&quot;</span>,<span class="st">&quot;, &quot;</span>,<span class="st">&quot;p1=0.2&quot;</span>))
+,<span class="dt">xlab=</span><span class="st">'Proporcion'</span>,<span class="dt">ylab=</span><span class="st">'Frecuencia'</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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M0QCzUDVAUhdCsgOdQJaXsTkpSPevF5nEVteSctLAW19nZX04mZe3m1UEauqmV/eURQ3GlVJV9VR5OtCRLdffk24CxsDeGFa1syHfD5DAIoyA0SDVSACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgLYF1MrvFMQuwcj2KxcB2hiQ+gHuRb+KV1Z7AJRjlUox7QLQ9Xi5ff8bX+Lcy8Ws129+P6pVreqKcu9EgZRFTLucfz6HLY1J0i4AsRwkixn/rW3+i/fXIzsQP7ytr0j3jmW12/kkAFkXdrErlgf3AEje5kkvm2O45G+Wdy+fzRXhrn8llwPyXULWd6ZpF63YSTVM8jbZ/2pNIielrjju0rPvUq5d20MO4nIAsEO1hlcDYleku1rmagFplzcFiOcgHxDlIO+3YUwd1Hp10GWyDno7gJxWjK/h9VsxsS6cXf7yehi0Ym8IkOkHHX86qr5N71Ti9/F+0BMDmlK5VjtaBAiIAAHtE9CORICACBAQAQIiQEAECIgAAREgIAIERICACBAQAQIiQEAECIgAAREgIAIERICACBAQAQIiQED/A56NAiUZcITjAAAAAElFTkSuQmCC" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a4&lt;-<span class="kw">rZOIP</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">mu =</span> <span class="fl">0.2</span>, <span class="dt">sigma =</span> <span class="dv">3</span>, <span class="dt">p0 =</span> <span class="fl">0.2</span>, <span class="dt">p1 =</span> <span class="fl">0.2</span>,<span class="dt">family=</span><span class="st">'Simplex'</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(a4),<span class="dt">main=</span><span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Distribucion Simplex &quot;</span>,mu<span class="op">==</span><span class="fl">0.2</span>,<span class="st">&quot;, &quot;</span>,sigma<span class="op">==</span><span class="dv">3</span>,<span class="st">&quot;, &quot;</span>, <span class="st">&quot;p0=0.2&quot;</span>,<span class="st">&quot;, &quot;</span>,<span class="st">&quot;p1=0.2&quot;</span>))
+,<span class="dt">xlab=</span><span class="st">'Proporcion'</span>,<span class="dt">ylab=</span><span class="st">'Frecuencia'</span>)</code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAgVBMVEUAAAAAADoAAGYAOmYAOpAAZrY6AAA6ADo6AGY6OgA6Ojo6ZrY6kNtmAABmADpmAGZmOgBmZgBmkJBmtrZmtttmtv+QOgCQZgCQkGaQkLaQtpCQ2/+2ZgC2Zjq2/9u2//++vr7bkDrb25Db/7bb/9vb////tmb/25D//7b//9v///+ysujCAAAACXBIWXMAAA7DAAAOwwHHb6hkAAALDUlEQVR4nO2dC5vjphWGvduxk7Z22qQdt82q3ajNyB7//x9YcZGELvAdbjKSz/c82Ywk4MArOICE0eHBcurw7AyULgYExICAGBAQAwJiQEAMCIgBATEgIAYExICAGBAQAwJiQEAMCIgBATEgIAYExICAGBAQAwJiQEAMCIgBATEgIAYExICAGBAQAwJiQEB2QJ/Xtw9n1ObQ6ss3HBSm5NLntbXyPhzfL+2xV3oyhTPdwvhsOKDqoHTMCkjm08j/7XTo7wtNkqjMJs3C5GxwE2vUbWwzPIM/z0I4oFqYaQ5fv3dJSTSNvbwLKRwFJSvSiYXp2WBAtbZ4Ozlqr1IEoM+rzHjd3YX75WicpqUgjde2+zi1MD17kOhUKupfUSXNc7rJt4f/PRlt2UxRBq3efr+K6yKGKEX19Xs1S0lEV7e/wjVPApHFayY+xBv5/TImOmTOsKAbozg/nFXt2QCkGnkb1ThShypyl1NxpavnGtA/xPW/X3Wo6uvPByN1nVLHpm8kjQR1Oy3jup2Oxv96TZtYo0tmwVbPrgyZMywYgIazB9lGB0Ath7OqHqrUukQiiPizHnJmlFgHVRhk25XHohFWOnWVrqo37e3536XLMQIkb4huWZ2m9aHjYwNUzS4NmVu2MJw9yOY2ABoCqiOZrgpiVEjDcF9FKmFShRqO+9T1Lfm8HlWBep85BdR1joejFdDU47Z3vo3dHBdT0KrHdW7IHAYk3O0AaPC55tEoiJmQyJyugNXEmVXqLuuour7pO1kNPsW/id1Okx5J57J2+aWJWx8yh5tYIKDbnwfLPoBUqKFXdQNacNL1tEfWSVjTGCGZAYJOetJ+HE1sBKh3A3ZAkyZm9EP1l1/7Q3cTm3fC9dzR6Mj3y3khBaMIJiAjc6CbV364Uv2zdKbvqsLNnPS4BlXdLMPaxOSdNpz0+0N3PyL1qmsm7ho0G8bVS0PESo9ZF0dkajxRjwcKQ+bgQFFVetkP/OGvfXfceV5d68YjAc14cCqWGvTHhQGDTKk913t7iaw1f/7811LxjImAGJoaraAfqupaMu3aHv3F3vcNMYbMwamGrrFiqPC7baDYd+UjJ930CVt80H+u/RjTHHLWui6dh1SOXYW0EJK5F8XrO/QRINWsbLOPYbJqAOozFz5ZjVW1fEOnauBMxap/02es0xjEzD0KAFQHA7r/hVrIeYztAFIjxyD5170hxnYAParwJhahEgDtRAwIiAEBMSAgBgTEgIAYEBADAmJAQAwIiAEBMSAgBgTEgIAYEBADAmJAQAwIiAEBMSAgBgTEgIAYEBADAmJAQAwIiAEBMSAgBgSUGNBhM3oWoLTJ5RMDAmJAQFsCRPcHCbUhQC2fJxDaEqD0uSBaTRswV3KHDLmgmk0aMFNyygGt74a2AyhLNsh2EwZ0p+I9QJ3Y3zug4OQOsz9WEgOiGk4WME9yDIganAGh4CsTYkB0y9SA3c9ByT8UirI7C10+oOrtoz6CH5+nszsLXTwg8avz5u3DvX9BOrvz0OsSCgH0/rj9+F3+Z1X3W3BrM/Qq5cFxlFv+gD6v58f9p29OQP2v86f7+fjbnQcuHdCjbqtFdXY1McGwC2wJ5VPKg/Mws0K6+Uruf+LoxEQr1GoswXYNCOrVaxBWv0VKEh80DbsqoUwj6W4wafVTHsnNgpYMqB0EmfuqrGB3Y4DWt7sQcleA6uhebIOAKrnnUtBWGmkWTaxJKGyy+phtl5fL7iLJsgF1o0DbEDCt3cVwZQPqRoE276IuHrrtsuJ80HKwsgHpUaBzc1+1zZpog3GALKEKB6T2qXPtZK0qmdyyLQaQ3ZOvSChLN9+5KfHsMRyQo6fbOqB+slodwwG5RgJlA4JPCwfPY38qAu06R0plA6Lse9ZN561bpmNAwRfTKuyhfX677uuFA4p630O0C66vRyhkoBg1x6DZjeSXUAE+qCF9piDO7pYBrfHALM6FJ1WZD8wY0L4BtY3s7SNy79nIYU7RgJov32qxzX8UoR0DEhOt2jFPd6dCeuRKmcn62w5T2EBRAMr4RHHbgLoaVGVbH0R6VhRh20vBPsj6Ha54u1sHpIaKHt/G87W7eUCZ7UY9rk4uBpTKznpzsa0D0orr5V8AkFiIl8Vu1CvF9AoH5KxCEcuAdwPINdWIWQZMzdFKhIIBuVZ3xCzifFa3Gm1m1os5Zhoxy4C3D4ig165BFEUsA94DIMISvPBlwDsAlHcJ3vYB5V2C51HsdQiFPTAToj1y9V3+sgNAlCV49lTQM+k9AMJL8CLs7gJQRrs+VhhQYBppFfhMOteb1V0Awm9W+4eO9gceOwZEebNqXZoI7PoVuVBApDercBnajgHR3qyiZWgpAK1CKNgHZXmzug9A+d6s+ha4VEDZ7O4DkPG4MLVd7wKvQCj8cUcGu/sAFPtO1WF3H4DyvZv3L26RgPLZZUAguQAT+Ql5AkrjoZfthhS2TEARHb3rketTAKVYkmwGjAXksvsEQIRdvDcOKI5QRybJ74ezAworahyg/g97Mq8MyIibYA+D3IBCSxpOaBQz/kVdBwg+bfZJLiQjieJNIyYClEzJAKUia6tCLwtonoHIh5x++fBe5ZrIlcTEWhOQ/yrXiAoaNMAkzwWzAPJfo5iotyZHWWYRNYP2yYb3Kte4T/Yke0wSNUPMWoPiegBvvD6jwlw+yGuVa+w3nzyjuyYW4b2rXya8VrnGfxPLKwH3043g3iPfOCjBN8M8kkCbgE4vPx9Qkm+qkfc+xeEmSeUGhFa5BnxpbFmUhIjGRsFWrkH9TPe3zWhdQLmSy6fn+6DCVcpktViVMlktVk+bamxGOQARJqspzT0hUmQ6hBqU0twTIsWmgyerSc2tHyk6HcJPo1OaWz1SxnRymmNAxUTKmE5OcwyomEgZ08lp7pUAbU8MCIgBATEgIAYExICAGBAQAwJiQEAMCIgBATEgIAYEtA6gxvxBfkP8db4ZTj3rJe0/d/uxf+FCteTSKoCaNptNl9XRATXS7QdqQe+X/o0U1ZJTawBSr4v0PsyjA2ok+nu4ZngvTrXk1hqAbifxtkgvKRodUCM9amIxm8O5Z0m15NYqgGT70BkfHVAjPao/tS6I9i5uAES05NYagJQf0N5gdECNdL+IN3G07cN6IlRLbm0DkD5FqgwbBJSgialTJ8qP1zfYxBI4aXWK1Ndv0EnHd/OqrJ5NbDvdfIKBoiymp5PezkBRrJuRY361iV5NnACMIlVtN0/bPkMC8rPkEk9WgRgQEAMCYkBADAiIAQExICAGBMSAgBgQEAMCYkBADAiIAQExICAGBMSAgBgQEAMCYkBADAiIAQExICAGBMSAgBgQEAMCei6gSm3k4LsAI9lXLgh6MiD9Ae7grS7yqwRA8WtUMqoIQLfT+/2nf4oFzo1azHr74deTXtWqz+jrtWyQqol1Vy5/u1CXxgSoCEBtDVLNTHxjUnzx/nZq/5AfnOzOqOt1W9Xul7MENFxpT9bZ6mAJgFQxz92iuRaX+mZ5/fbRn5HXu6/kCkDjK7T1nSEqohc7645JFbP9V69JFKT0GeO6Cjy+kq9fK6EGCRkA2j/1Ct4OUHtGXdfLXAdA3ZWXAiRq0BgQ16DRt2F6H1SNfNC71Qe9DiCjFxMreMe9mFwV3p7+vB4nvdgLAerHQadfTnps0xhO/LE8DtoxIJvy9dreYkBADAioTEAFiQEBMSAgBgTEgIAYEBADAmJAQAwIiAEBMSAgBgTEgIAYEBADAmJAQAwIiAEBMSAgBgTEgID+DzVJXyb8vXRhAAAAAElFTkSuQmCC" /><!-- --></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
